@@ -3,7 +3,7 @@ class Vendor
     @ratings = []
   end
   
-  attr_accessor :ratings
+  attr_accessor :ratings, :zipcode
 
   def average_rating
     return 0 if ratings.empty?

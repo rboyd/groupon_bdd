@@ -14,5 +14,7 @@ describe Vendor do
       vendor.ratings.should =~ [3, 5]
       vendor.average_rating.should == 4
     end
+    
+    it 'should have a zipcode'
   end
 end

@@ -1,5 +1,6 @@
 require 'deal'
 require 'user'
+require 'location'
 
 describe User do
   it 'has an initial score of zero' do
@@ -60,7 +61,7 @@ describe User do
       user.should be_interested(deal)
     end
     
-    it "which is lose half their value if the deal is not of a type in the user's interests" do
+    it "which loses half their value if the deal is not of a type in the user's interests" do
       vendor = Vendor.new
       vendor.add_rating(4)
 
@@ -83,5 +84,21 @@ describe User do
     user.interests << :services
     user.interests.count.should == 2
   end
+  
+  it 'should have a zipcode' do
+    user = User.new
+    user.should have_a(:zipcode)
+  end
+  
+  it 'should return a location score depending on distance to the vendor' do
+    user = User.new
+    user.zipcode = '90210'
 
+    vendor = Vendor.new
+    vendor.zipcode = '65203'
+    
+    Location.should_receive(:distance_between).with('90210', '65203').and_return(300)
+
+    user.location_score_with(vendor).should == 85
+  end
 end

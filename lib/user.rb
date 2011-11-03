@@ -1,5 +1,5 @@
 class User
-  attr_accessor :interests
+  attr_accessor :interests, :zipcode
   
   def initialize
     @interests = []
@@ -20,5 +20,10 @@ class User
   
   def interested?(deal)
     !(interests & deal.types).empty?
+  end
+  
+  def location_score_with(vendor)
+    distance = Location.distance_between(zipcode, vendor.zipcode)
+    [0, 100 - (distance / 20)].max
   end
 end
