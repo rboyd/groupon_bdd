@@ -85,11 +85,6 @@ describe User do
     user.interests.count.should == 2
   end
   
-  it 'should have a zipcode' do
-    user = User.new
-    user.should have_a(:zipcode)
-  end
-  
   it 'should return a location score depending on distance to the vendor' do
     user = User.new
     user.zipcode = '90210'
